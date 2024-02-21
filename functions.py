@@ -19,17 +19,21 @@ def chipstobalance(chips: str):
     except IndexError:
         return 0
 
+
 def balance(sessions, player: Player):
     # Appends session chip total for a player onto their balanceovertime, vars converts strings into a variable name and we need it to all be lower case as the variable names are lower case
-    name = player.name
-    
+    name = player.name.lower()
+
+
+    # TODO UNBREAK THIS IDK WHY IT DOESN'T WORK
     for i in sessions:
-        i.vars()[name.lower()] != '':
-            player.balanceovertime.append(chipstobalance(i.vars()[name.lower()]))
+        if vars(i)[name] != '':
+            player.balanceovertime.append(chipstobalance(vars(i)[name]))
         else:
             player.balanceovertime.append(player.balanceovertime[-1])
 
     player.balance = player.balanceovertime[-1]
+
 
 def buyin(sessions, player):
     ### Goes through all the sessions and adds up a player's buyins by checking if their name appears in the buyin column of the session.
