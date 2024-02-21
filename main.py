@@ -28,7 +28,7 @@ with open('Poker1.csv') as f:
 
     i = 1  # This is for the session number.
     for row in csv_read:
-        session = Session(i, row[1].split(';'), row[2].split(';'), row[3].split(';'), row[4], row[5], row[6], row[7], row[8], row[10], row[11])
+        session = Session(i, row[1].split(';'), row[2].split(';'), row[13].split(';'), row[3], row[4], row[5], row[6], row[7], row[9], row[10])
         sessions.append(session)
         i += 1
 
