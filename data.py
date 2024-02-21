@@ -1,9 +1,11 @@
 class Player:
-    def __init__(self, name, balance, buyins, revbuyins):
+    def __init__(self, name: str, balance: int, buyins: float, revbuyins: int, balanceovertime: list, profit: list):
         self.name = name
         self.balance = balance
-        self.buyin = buyins
-        self.revbuyings = revbuyins
+        self.buyins = buyins
+        self.revbuyins = revbuyins
+        self.balanceovertime = balanceovertime
+        self.profit = profit
 
 
 class Session:
@@ -11,7 +13,7 @@ class Session:
         self.number = number
         self.players = players
         self.buyins = buyins
-        self.revbuyings = revbuyins
+        self.revbuyins = revbuyins
         self.oscar = oscar
         self.mitchell = mitchell
         self.xavier = xavier
