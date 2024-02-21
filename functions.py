@@ -19,51 +19,17 @@ def chipstobalance(chips: str):
     except IndexError:
         return 0
 
-
 def balance(sessions, player: Player):
-    ### Appends sessions chip total for a player onto their balanceovertime variable. I can't remeber by the match case statement was needed, but it is.
+    # Appends session chip total for a player onto their balanceovertime, vars converts strings into a variable name and we need it to all be lower case as the variable names are lower case
     name = player.name
+    
     for i in sessions:
-        # Chooses which player.balance to change depending on the inputed player variable, Also checks if the inputed chip string is empty.
-        match name:
-            case "Aidan":
-                if i.aidan != '':
-                    player.balanceovertime.append(chipstobalance(i.aidan))
-                else:
-                    player.balanceovertime.append(player.balanceovertime[-1])
-            case "Ben":
-                if i.ben != '':
-                    player.balanceovertime.append(chipstobalance(i.ben))
-                else:
-                    player.balanceovertime.append(player.balanceovertime[-1])
-            case "Cooper":
-                if i.cooper != '':
-                    player.balanceovertime.append(chipstobalance(i.cooper))
-                else:
-                    player.balanceovertime.append(player.balanceovertime[-1])
-            case "Hunter":
-                if i.hunter != '':
-                    player.balanceovertime.append(chipstobalance(i.hunter))
-                else:
-                    player.balanceovertime.append(player.balanceovertime[-1])
-            case "Mitchell":
-                if i.mitchell != '':
-                    player.balanceovertime.append(chipstobalance(i.mitchell))
-                else:
-                    player.balanceovertime.append(player.balanceovertime[-1])
-            case "Oscar":
-                if i.oscar != '':
-                    player.balanceovertime.append(chipstobalance(i.oscar))
-                else:
-                    player.balanceovertime.append(player.balanceovertime[-1])
-            case "Xavier":
-                if i.xavier != '':
-                    player.balanceovertime.append(chipstobalance(i.xavier))
-                else:
-                    player.balanceovertime.append(player.balanceovertime[-1])
+        i.vars()[name.lower()] != '':
+            player.balanceovertime.append(chipstobalance(i.vars()[name.lower()]))
+        else:
+            player.balanceovertime.append(player.balanceovertime[-1])
 
     player.balance = player.balanceovertime[-1]
-
 
 def buyin(sessions, player):
     ### Goes through all the sessions and adds up a player's buyins by checking if their name appears in the buyin column of the session.
