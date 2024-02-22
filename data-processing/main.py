@@ -4,15 +4,15 @@ import matplotlib.pyplot as plt
 
 from functions import *
 
-# Player initialisation. Adds a -600 profit from the get go because of the initial buyin. The 0.3 for buyins is for the initial 600 buyin before the number was changed
+# Player initialisation.
 
-aidan = Player("Aidan", 0, 0.3, 0, [], [])
-ben = Player("Ben", 0, 0.3, 0, [], [])
+aidan = Player("Aidan", 0, 0, 0, [], [])
+ben = Player("Ben", 0, 0, 0, [], [])
 cooper = Player("Cooper", 0, 0, 0, [], [])
-hunter = Player("Hunter", 0, 0.3, 0, [], [])
-mitchell = Player("Mitchell", 0, 0.3, 0, [], [])
-oscar = Player("Oscar", 0, 0.3, 0, [], [])
-xavier = Player("Xavier", 0, 0.3, 0, [], [])
+hunter = Player("Hunter", 0, 0, 0, [], [])
+mitchell = Player("Mitchell", 0, 0, 0, [], [])
+oscar = Player("Oscar", 0, 0, 0, [], [])
+xavier = Player("Xavier", 0, 0, 0, [], [])
 
 # Array of players in order to index through all players.
 
