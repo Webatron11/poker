@@ -1,6 +1,8 @@
 import csv
-from functions import *
+
 import matplotlib.pyplot as plt
+
+from functions import *
 
 # Player initialisation. Adds a -600 profit from the get go because of the initial buyin. The 0.3 for buyins is for the initial 600 buyin before the number was changed
 
@@ -51,13 +53,25 @@ for i in players:
 
     # Plotting balanceovertime against session number. Should be self-explanatory
 
-    plt.plot(sessionnumbers, i.balanceovertime, marker='x')
+    plt.plot(sessionnumbers, i.profitovertime, marker='x', label=i.name)
     # TODO make it plot negative numbers, change scale of x, interactive????
-    plt.ylim(min(i.balanceovertime), max(i.balanceovertime))
 
     plt.xlabel("Session Number")
-    plt.ylabel("Balance")
-    plt.title(i.name)
+    plt.ylabel("Profit")
     plt.grid(True)
 
-    plt.show()
+# Finds smallest profit and largest profit
+smallest = 0
+largest = 0
+
+for i in players:
+    if i.profitovertime[-1] > largest:
+        largest = i.profitovertime[-1]
+    elif i.profitovertime[-1] < smallest:
+        smallest = i.profitovertime[-1]
+
+plt.title("Profit Over Time")
+plt.ylim([smallest, largest])
+plt.legend()
+
+plt.show()
