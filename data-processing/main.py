@@ -29,7 +29,7 @@ with open('Poker.csv') as f:
 
     i = 1  # This is for the session number.
     for row in csv_read:
-        session = Session(i, row[1].split(','), row[2].split(','), row[13].split(','), row[3], row[4], row[5], row[6], row[7], row[9], row[10])
+        session = Session(i, row[1].split(','), row[2].split(','), row[10].split(','), row[3], row[4], row[5], row[6], row[7], row[8], row[9])
         sessions.append(session)
         i += 1
 
@@ -53,7 +53,6 @@ for i in players:
     # Plotting balanceovertime against session number. Should be self-explanatory
 
     plt.plot(sessionnumbers, i.profitovertime, marker='x', label=i.name)
-    # TODO make it plot negative numbers, change scale of x, interactive????
 
     plt.xlabel("Session Number")
     plt.ylabel("Profit")
