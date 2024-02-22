@@ -72,5 +72,3 @@ def profit(sessions, player):
             revbuyintotal += 1
 
         player.profitovertime.append(player.balanceovertime[i] - (buyintotal * 2000) + (revbuyintotal * 2000))
-
-        # TODO need to make it not just copy last one, but also include the last shit. i have no idea what that means, look at the stuff to make sense of it
