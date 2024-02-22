@@ -4,15 +4,15 @@ import matplotlib.pyplot as plt
 
 from functions import *
 
-# Player initialisation. Adds a -600 profit from the get go because of the initial buyin. The 0.3 for buyins is for the initial 600 buyin before the number was changed
+# Player initialisation.
 
-aidan = Player("Aidan", 0, 0.3, 0, [], [])
-ben = Player("Ben", 0, 0.3, 0, [], [])
+aidan = Player("Aidan", 0, 0, 0, [], [])
+ben = Player("Ben", 0, 0, 0, [], [])
 cooper = Player("Cooper", 0, 0, 0, [], [])
-hunter = Player("Hunter", 0, 0.3, 0, [], [])
-mitchell = Player("Mitchell", 0, 0.3, 0, [], [])
-oscar = Player("Oscar", 0, 0.3, 0, [], [])
-xavier = Player("Xavier", 0, 0.3, 0, [], [])
+hunter = Player("Hunter", 0, 0, 0, [], [])
+mitchell = Player("Mitchell", 0, 0, 0, [], [])
+oscar = Player("Oscar", 0, 0, 0, [], [])
+xavier = Player("Xavier", 0, 0, 0, [], [])
 
 # Array of players in order to index through all players.
 
@@ -22,14 +22,14 @@ sessions = []
 
 # Reads csv file and parses the information into an array of the Session type.
 
-with open('Poker.csv') as f:
+with open('data-processing/Poker.csv') as f:
     csv_read = csv.reader(f, delimiter=',')
 
     next(csv_read)
 
     i = 1  # This is for the session number.
     for row in csv_read:
-        session = Session(i, row[1].split(','), row[2].split(','), row[13].split(','), row[3], row[4], row[5], row[6], row[7], row[9], row[10])
+        session = Session(i, row[1].split(','), row[2].split(','), row[10].split(','), row[3], row[4], row[5], row[6], row[7], row[8], row[9])
         sessions.append(session)
         i += 1
 
@@ -53,7 +53,6 @@ for i in players:
     # Plotting balanceovertime against session number. Should be self-explanatory
 
     plt.plot(sessionnumbers, i.profitovertime, marker='x', label=i.name)
-    # TODO make it plot negative numbers, change scale of x, interactive????
 
     plt.xlabel("Session Number")
     plt.ylabel("Profit")
