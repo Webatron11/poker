@@ -1,11 +1,13 @@
+
+
 class Player:
-    def __init__(self, name: str, balance: int, buyins: float, revbuyins: int, balanceovertime: list, profit: list):
+    def __init__(self, name: str, balance: int, buyins: float, revbuyins: int, balanceovertime: list, profitovertime: list):
         self.name = name
         self.balance = balance
         self.buyins = buyins
         self.revbuyins = revbuyins
         self.balanceovertime = balanceovertime
-        self.profit = profit
+        self.profitovertime = profitovertime
 
 
 class Session:

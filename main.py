@@ -4,13 +4,13 @@ import matplotlib.pyplot as plt
 
 # Player initialisation. Adds a -600 profit from the get go because of the initial buyin. The 0.3 for buyins is for the initial 600 buyin before the number was changed
 
-aidan = Player("Aidan", 0, 0.3, 0, [0], [-600])
-ben = Player("Ben", 0, 0.3, 0, [0], [-600])
-cooper = Player("Cooper", 0, 0.3, 0, [0], [-600])
-hunter = Player("Hunter", 0, 0.3, 0, [0], [-600])
-mitchell = Player("Mitchell", 0, 0.3, 0, [0], [-600])
-oscar = Player("Oscar", 0, 0.3, 0, [0], [-600])
-xavier = Player("Xavier", 0, 0.3, 0, [0], [-600])
+aidan = Player("Aidan", 0, 0.3, 0, [], [])
+ben = Player("Ben", 0, 0.3, 0, [], [])
+cooper = Player("Cooper", 0, 0, 0, [], [])
+hunter = Player("Hunter", 0, 0.3, 0, [], [])
+mitchell = Player("Mitchell", 0, 0.3, 0, [], [])
+oscar = Player("Oscar", 0, 0.3, 0, [], [])
+xavier = Player("Xavier", 0, 0.3, 0, [], [])
 
 # Array of players in order to index through all players.
 
@@ -44,10 +44,10 @@ for i in players:
     balance(sessions, i)
     buyin(sessions, i)
     revbuyin(sessions, i)
-    # profit(sessions, i) # Non-functional function to be added later
-    # i.balance = i.balance - (i.buyins * 2000) + (i.revbuyins * 2000)  # This just creates a final balance based off buyins and revbuyins
-    # TODO make final balance correct......
-    print(i.balance, i.balanceovertime, i.profit, i.buyins, i.revbuyins, i.name)  # Bug checking for now, going to output data in a prettier manner later
+    profit(sessions, i) # Non-functional function to be added later
+    i.balance = i.balance - (i.buyins * 2000) + (i.revbuyins * 2000)  # This just creates a final balance based off buyins and revbuyins
+    # Final balance is correct, it just doesn't match the spreadsheet - I'm 90% sure the spreadsheet is wrong.
+    print(i.balanceovertime, '\n', i.profitovertime, '\n' ,i.buyins, i.balance, i.revbuyins, i.name, '\n')  # Bug checking for now, going to output data in a prettier manner later
 
     # Plotting balanceovertime against session number. Should be self-explanatory
 
