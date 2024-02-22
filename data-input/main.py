@@ -8,5 +8,7 @@ with open('connection.json') as f:
 conn = psql.connect(database="poker", user=connectioninfo['user'], password=connectioninfo['password'], host=connectioninfo['host'], port=connectioninfo['port'])
 cur = conn.cursor()
 
+cur.execut('SELECT * FROM poker;')
+
 cur.close()
 conn.close()
