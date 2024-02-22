@@ -22,8 +22,7 @@ sessions = []
 
 # Reads csv file and parses the information into an array of the Session type.
 
-csv_read = ''
-with open('Poker1.csv') as f:
+with open('Poker.csv') as f:
     csv_read = csv.reader(f, delimiter=',')
 
     next(csv_read)
