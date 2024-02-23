@@ -23,3 +23,18 @@ class Session:
         self.aidan = aidan
         self.hunter = hunter
         self.cooper = cooper
+
+
+# Player initialisation.
+
+aidan = Player("Aidan", 0, 0, 0, [], [])
+ben = Player("Ben", 0, 0, 0, [], [])
+cooper = Player("Cooper", 0, 0, 0, [], [])
+hunter = Player("Hunter", 0, 0, 0, [], [])
+mitchell = Player("Mitchell", 0, 0, 0, [], [])
+oscar = Player("Oscar", 0, 0, 0, [], [])
+xavier = Player("Xavier", 0, 0, 0, [], [])
+
+# Array of players in order to index through all players.
+
+players = [aidan, ben, cooper, hunter, mitchell, oscar, xavier]
