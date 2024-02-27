@@ -1,2 +1,8 @@
-Is Aidan playing? (Y/N) Invalid input
-Is Aidan playing? (Y/N) Did Aidan buyin? (Y/N) Did Aidan reverse buyin? (Y/N) Is Ben playing? (Y/N) Did Ben buyin? (Y/N) Did Ben reverse buyin? (Y/N) Is Cooper playing? (Y/N) Did Cooper buyin? (Y/N) Did Cooper reverse buyin? (Y/N) Is Hunter playing? (Y/N) Did Hunter buyin? (Y/N) Did Hunter reverse buyin? (Y/N) Is Mitchell playing? (Y/N) Did Mitchell buyin? (Y/N) Did Mitchell reverse buyin? (Y/N) Is Oscar playing? (Y/N) Did Oscar buyin? (Y/N) Did Oscar reverse buyin? (Y/N) Is Xavier playing? (Y/N) Did Xavier buyin? (Y/N) Did Xavier reverse buyin? (Y/N) What is Aidan's balance? What is Ben's balance? What is Cooper's balance? What is Hunter's balance? What is Mitchell's balance? What is Oscar's balance? What is Xavier's balance? {'number': 0, 'players': ['Aidan', 'Ben', 'Cooper', 'Hunter', 'Mitchell', 'Oscar', 'Xavier'], 'buyins': ['Aidan', 'Cooper', 'Mitchell', 'Xavier'], 'revbuyins': ['Ben', 'Hunter', 'Oscar'], 'oscar': '5 W 5 R 5 B 5 G', 'mitchell': '5 W 5 R 5 B 5 G', 'xavier': '5 W 5 R 5 B 5 G', 'ben': '5 W 5 R 5 B 5 G', 'aidan': '5 W 5 R 5 B 5 G', 'hunter': '5 W 5 R 5 B 5 G', 'cooper': '5 W 5 R 5 B 5 G'}
+Is Aidan playing? (Y/N) Traceback (most recent call last):
+  File "/home/dakka/Git/poker/data-input/main.py", line 19, in <module>
+    if yninput(session, "players", i) == "Y":
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dakka/Git/poker/data-input/functions.py", line 16, in yninput
+    yn = input(string % player.name).upper()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

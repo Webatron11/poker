@@ -1,6 +1,5 @@
-from dateutil import *
-import psycopg2 as psql
-import json
+from datetime import datetime
+import sqlite3
 from data import *
 from functions import *
 
@@ -26,22 +25,33 @@ for i in session.players:
 
 print(vars(session))
 
-with open('data-input/connection.json') as f:
-    connectioninfo = json.load(f)
-
-conn = psql.connect(database="poker", user=connectioninfo['user'], password=connectioninfo['password'], host=connectioninfo['host'], port=connectioninfo['port'])
+conn = sqlite3.connect('database.db')
 cur = conn.cursor()
 
-fields = "date, players, buyins, revbuyins, " + ', '.join(session.players)
-
-playerbalances = ""
+lowerplayers = list()
 for i in session.players:
-    playerbalances = playerbalances + ", " + vars(session)[i.lower()]
+    lowerplayers.append(i.lower())
 
-values = "now, " + ', '.join(session.players) + ", " + ', '.join(session.buyins) + ", " + ', '.join(session.revbuyins) + ", "
+fields = ', '.join(lowerplayers) + ", date, players, buyins, revbuyins"
+
+playerbalances = "'"
+for i in lowerplayers:
+    if vars(session)[i] != '':
+        playerbalances += vars(session)[i] + "', '"
+
+today = datetime.now()
+
+values = (playerbalances +
+          today.strftime("%Y/%m/%d %H:%M:%S") +
+          "', '" + ", ".join(session.players) +
+          "', '" + ", ".join(session.buyins) +
+          "', '" + ", ".join(session.revbuyins) +
+          "'"
+          )
 
 print(values)
-# cur.execute(f"INSERT INTO poker({fields})")
+cur.execute(f"INSERT INTO poker({fields}) VALUES ({values})")
+conn.commit()
 
 cur.close()
 conn.close()
