@@ -16,7 +16,7 @@ def yninput(session, question, player):
         yn = input(string % player.name).upper()
         match yn:
             case "Y":
-                session.players.append(player.name)
+                vars(session)[question].append(player.name)
                 x = False
             case "N":
                 x = False
@@ -33,7 +33,7 @@ def balanceinput(session, playername):
         balancestring = input("What is %s's balance? " % playername).upper()
         match = re.match(r"\d+\s*W\s*\d+\s*R\s*\d+\s*B\s*\d+\s*G", balancestring)
         if match is not None:
-            vars(session)[playername] = balancestring
+            vars(session)[playername.lower()] = balancestring
             x = False
         else:
             print("Invalid input.")

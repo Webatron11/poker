@@ -4,17 +4,6 @@ import json
 from data import *
 from functions import *
 
-# with open('connection.json') as f:
-#     connectioninfo = json.load(f)
-#
-# conn = psql.connect(database="poker", user=connectioninfo['user'], password=connectioninfo['password'], host=connectioninfo['host'], port=connectioninfo['port'])
-# cur = conn.cursor()
-#
-# cur.execute('SELECT * FROM poker;')
-#
-# cur.close()
-# conn.close()
-
 # WHAT IF WE STORE THE SESSION VARIABLE IN THE DATABASE INSTEAD OF THE SEPERATE DATA - LESS REDUNDANT PROCESSES!!!!
 
 # Ask user for players
@@ -36,3 +25,23 @@ for i in session.players:
     balanceinput(session, i)
 
 print(vars(session))
+
+with open('data-input/connection.json') as f:
+    connectioninfo = json.load(f)
+
+conn = psql.connect(database="poker", user=connectioninfo['user'], password=connectioninfo['password'], host=connectioninfo['host'], port=connectioninfo['port'])
+cur = conn.cursor()
+
+fields = "date, players, buyins, revbuyins, " + ', '.join(session.players)
+
+playerbalances = ""
+for i in session.players:
+    playerbalances = playerbalances + ", " + vars(session)[i.lower()]
+
+values = "now, " + ', '.join(session.players) + ", " + ', '.join(session.buyins) + ", " + ', '.join(session.revbuyins) + ", "
+
+print(values)
+# cur.execute(f"INSERT INTO poker({fields})")
+
+cur.close()
+conn.close()
