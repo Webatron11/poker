@@ -11,7 +11,7 @@ cur = conn.cursor()
 
 for row in cur.execute('SELECT * FROM poker ORDER BY date'):
     i = 1
-    session = Session(i, row[1].split(','), row[2].split(','), row[10].split(','), row[3], row[4], row[5], row[6], row[7], row[8], row[9])
+    session = Session(i, row[1].split(','), row[2].split(','), row[3].split(','), row[8], row[10], row[9], row[5], row[4], row[7], row[6])
     sessions.append(session)
     i += 1
 
