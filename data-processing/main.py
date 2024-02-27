@@ -1,23 +1,20 @@
-import csv
-
+from sqlite3 import *
 import matplotlib.pyplot as plt
-
 from functions import *
 
 sessions = []
 
-# Reads csv file and parses the information into an array of the Session type.
+conn = connect('database.db')
+cur = conn.cursor()
 
-with open('data-processing/Poker.csv') as f:
-    csv_read = csv.reader(f, delimiter=',')
+# Reads db file and parses the information into an array of the Session type.
 
-    next(csv_read)
+for row in cur.execute('SELECT * FROM poker ORDER BY date'):
+    i = 1
+    session = Session(i, row[1].split(','), row[2].split(','), row[10].split(','), row[3], row[4], row[5], row[6], row[7], row[8], row[9])
+    sessions.append(session)
+    i += 1
 
-    i = 1  # This is for the session number.
-    for row in csv_read:
-        session = Session(i, row[1].split(','), row[2].split(','), row[10].split(','), row[3], row[4], row[5], row[6], row[7], row[8], row[9])
-        sessions.append(session)
-        i += 1
 
 # Makes an array of integers, so we can graph stuff based on session number.
 
