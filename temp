@@ -1,0 +1,8 @@
+Is Aidan playing? (Y/N) Traceback (most recent call last):
+  File "/home/dakka/Git/poker/data-input/main.py", line 19, in <module>
+    if yninput(session, "players", i) == "Y":
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/dakka/Git/poker/data-input/functions.py", line 16, in yninput
+    yn = input(string % player.name).upper()
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
