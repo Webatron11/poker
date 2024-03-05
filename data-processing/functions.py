@@ -39,15 +39,17 @@ def balance(sessions, player: Player):
 def buyin(sessions, player):
     # Goes through all the sessions and adds up a player's buyins by checking if their name appears in the buyin column of the session.
     for i in sessions:
-        if player.name in i.buyins:
-            player.buyins += 1
+        for player in i.buyin:
+            if player.name == player:
+                player.buyins += 1
 
 
 def revbuyin(sessions, player):
     # Goes through all the sessions and adds up a player's revbuyins by checking if their name appears in the revbuyin column of the session.
     for i in sessions:
-        if player.name in i.revbuyins:
-            player.revbuyins += 1
+        for player in i.revbuyin:
+            if player.name == player:
+                player.revbuyins += 1
 
 
 def profit(sessions, player):

@@ -6,17 +6,32 @@ def yninput(session, question, player):
     match question:
         case "players":
             string = "Is %s playing? (Y/N) "
+            buyin = None
         case "buyins":
             string = "Did %s buyin? (Y/N) "
+            buyin = True
         case "revbuyins":
             string = "Did %s reverse buyin? (Y/N) "
+            buyin = False
 
     x = True
     while x:
         yn = input(string % player.name).upper()
         match yn:
             case "Y":
-                vars(session)[question].append(player.name)
+                match buyin:
+                    # Takes buyin bool and takes number of buyins or reverse buyins. If neither, it just does normal stuff.
+                    case None:
+                        session.player.append(player.name)
+                    case True:
+                        num = input(f'How many times did {player.name} buyin? ')
+                        for i in range(num):
+                            session.buyin.append(player.name)
+                    case False:
+                        num = input(f'How many times did {player.name} reverse buyin? ')
+                        for i in range(num):
+                            session.revbuyin.append(player.name)   
+                
                 x = False
             case "N":
                 x = False
