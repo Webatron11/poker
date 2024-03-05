@@ -3,8 +3,6 @@ import sqlite3
 from data import *
 from functions import *
 
-# WHAT IF WE STORE THE SESSION VARIABLE IN THE DATABASE INSTEAD OF THE SEPERATE DATA - LESS REDUNDANT PROCESSES!!!!
-
 # Ask user for players
 #   Recurse through list and ask for yes/no answer
 # Ask user for buyins

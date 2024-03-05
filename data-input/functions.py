@@ -22,15 +22,15 @@ def yninput(session, question, player):
                 match buyin:
                     # Takes buyin bool and takes number of buyins or reverse buyins. If neither, it just does normal stuff.
                     case None:
-                        session.player.append(player.name)
+                        session.players.append(player.name)
                     case True:
-                        num = input(f'How many times did {player.name} buyin? ')
+                        num = int(input(f'How many times did {player.name} buyin? '))
                         for i in range(num):
-                            session.buyin.append(player.name)
+                            session.buyins.append(player.name)
                     case False:
-                        num = input(f'How many times did {player.name} reverse buyin? ')
+                        num = int(input(f'How many times did {player.name} reverse buyin? '))
                         for i in range(num):
-                            session.revbuyin.append(player.name)   
+                            session.revbuyins.append(player.name)
                 
                 x = False
             case "N":

@@ -3,25 +3,26 @@ from data import *
 
 
 def chipstobalance(chips: str):
-    # Uses regex to seperate inputed string into W, R, B, G chip counts and then creating a total balance
+    # Uses regex to separate inputted string into W, R, B, G chip counts and then creating a total balance
     regex = r'\d+\s*'
 
     matches = re.findall(regex, chips)
-    formated = []
+    formatted = []
 
     for i in matches:
-        formated.append(int(i.strip()))
+        formatted.append(int(i.strip()))
 
-    # I can't actually rememeber why this is here.
+    # I can't actually remember why this is here.
 
     try:
-        return (formated[0] * 10) + (formated[1] * 25) + (formated[2] * 100) + (formated[3] * 500)
+        return (formatted[0] * 10) + (formatted[1] * 25) + (formatted[2] * 100) + (formatted[3] * 500)
     except IndexError:
         return 0
 
 
 def balance(sessions, player: Player):
-    # Appends session chip total for a player onto their balanceovertime, vars converts strings into a variable name, and we need it to all be lower case as the variable names are lower case
+    # Appends session chip total for a player onto their balance overtime, vars converts strings into a variable name,
+    # and we need it to all be lower case as the variable names are lower case
     name = player.name.lower()
 
     for i in sessions:
@@ -37,7 +38,8 @@ def balance(sessions, player: Player):
 
 
 def buyin(sessions, player):
-    # Goes through all the sessions and adds up a player's buyins by checking if their name appears in the buyin column of the session.
+    # Goes through all the sessions and adds up a player's buyins by checking if their name appears in the buyin column
+    # of the session.
     for i in sessions:
         for player in i.buyin:
             if player.name == player:
@@ -45,7 +47,8 @@ def buyin(sessions, player):
 
 
 def revbuyin(sessions, player):
-    # Goes through all the sessions and adds up a player's revbuyins by checking if their name appears in the revbuyin column of the session.
+    # Goes through all the sessions and adds up a player's revbuyins by checking if their name appears in the revbuyin
+    # column of the session.
     for i in sessions:
         for player in i.revbuyin:
             if player.name == player:
@@ -53,8 +56,8 @@ def revbuyin(sessions, player):
 
 
 def profit(sessions, player):
-    # It SHOULD take the player balance overtime, apply any buyins or revbuyins then append it to the profit list in order to create a profit over time
-    # thing, but it doesn't work yet.
+    # It takes the player balance overtime, applies any buyins or revbuyins then appends it to the profit list in
+    # order to create a profit over time thing
 
     # Profit = balance - buyins + revbuyins
 
