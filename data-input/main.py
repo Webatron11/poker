@@ -11,7 +11,7 @@ from functions import *
 #   Error check for correct # W # R # B # G format (regex)
 #   Recurse through the list of players inputted.
 
-session = Session(0, [], [], [], "", "", "", "", "", "", "")
+session = Session(0, [], [], [], [])
 
 for i in players:
     if yninput(session, "players", i) == "Y":

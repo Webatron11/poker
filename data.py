@@ -3,46 +3,37 @@ from sqlite3 import connect
 
 class Player:
     def __init__(self, name, balance, buyins, revbuyins, balanceovertime, profitovertime):
-        self.name = name
-        self.balance = balance
-        self.buyins = buyins
-        self.revbuyins = revbuyins
-        self.balanceovertime = balanceovertime
-        self.profitovertime = profitovertime
+        self.name = name  # Name of player
+        self.balance = balance  # Balance of player
+        self.buyins = buyins  # Contains a int which is the total number of buyins for the player
+        self.revbuyins = revbuyins  # Contains an int which is the total number of revbuyins for the player
+        self.balanceovertime = balanceovertime  # Contains an array which contains the player's balance overtime
+        self.profitovertime = profitovertime  # Contains an array which contains the player's profit over time. This is calculated from their rev/buyins for the session
 
 
 class Session:
     def __init__(self, number, players, buyins, revbuyins, balances):
-        self.number = number
-        self.players = players
-        self.buyins = buyins
-        self.revbuyins = revbuyins
-        self.balances = balances
+        self.number = number  # Contains an int which is used for the chart later (In the database this is a date)
+        self.players = players  # Contains a string of players who participated in that session
+        self.buyins = buyins  # Contains a string which has one name per buyin in that session
+        self.revbuyins = revbuyins  # Contains a string which has one name per revbuyin in that session
+        self.balances = balances  # Contains the player's balances.
 
 
-conn = connect('poker.db')
+# Fetches column names from the database and then creates X number of players based off the number of player columns
+# in the database
+
+# Connects to the poker db file
+conn = connect('database.db')
 cur = conn.cursor()
 
-columns = cur.execute("SELECT name FROM PRAGMA_TABLE_INFO('poker')")
+columns = cur.execute("PRAGMA table_info(poker)")  # Fetches the column names from the table 'poker'
+columns = columns.fetchall()  # Takes the request to the db and converts the response into an array of tuples
+columns = columns[4:]  # Trims list to the player names. 0:4 is date, players, buyins, revbuyins
 
-print(columns)
+conn.close()  # Closes the database connection
 
+# Initialises the players array from the array of column names gathered earlier.
 players = []
 for i in columns:
-    players.append(Player(i, 0, 0, 0, [], []))
-
-print(players)
-
-# Player initialisation.
-
-# aidan = Player("Aidan", 0, 0, 0, [], [])
-# ben = Player("Ben", 0, 0, 0, [], [])
-# cooper = Player("Cooper", 0, 0, 0, [], [])
-# hunter = Player("Hunter", 0, 0, 0, [], [])
-# mitchell = Player("Mitchell", 0, 0, 0, [], [])
-# oscar = Player("Oscar", 0, 0, 0, [], [])
-# xavier = Player("Xavier", 0, 0, 0, [], [])
-#
-# # Array of players in order to index through all players.
-#
-# players = [aidan, ben, cooper, hunter, mitchell, oscar, xavier]
+    players.append(Player(i[1].upper(), 0, 0, 0, [], []))
