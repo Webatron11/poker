@@ -3,19 +3,22 @@ from data import *
 
 
 def chipstobalance(chips: str):
-    # Uses regex to separate inputted string into W, R, B, G chip counts and then creating a total balance
+    # Uses regex to separate inputted string into W, R, B, G, Bl, P chip counts and then creating a total balance
     regex = r'\d+\s*'
 
     matches = re.findall(regex, chips)
     formatted = []
 
+    # Takes all matches from balance string and then strips them of whitespace
+
     for i in matches:
         formatted.append(int(i.strip()))
 
-    # I can't actually remember why this is here.
+    # Takes the formatted matches and times them by their respective chip amounts for the end total
 
     try:
-        return (formatted[0] * 10) + (formatted[1] * 25) + (formatted[2] * 100) + (formatted[3] * 500)
+        return ((formatted[0] * 1) + (formatted[1] * 5) + (formatted[2] * 10) + (formatted[3] * 25)
+                + (formatted[4] * 100) + (formatted[5] * 500))
     except IndexError:
         return 0
 
