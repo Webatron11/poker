@@ -11,7 +11,7 @@ from functions import *
 #   Error check for correct # W # R # B # G format (regex)
 #   Recurse through the list of players inputted.
 
-session = Session(0, [], [], [], [])
+session = Session(0, [], [], [], balances)
 
 for i in players:
     if yninput(session, "players", i) == "Y":
@@ -26,16 +26,12 @@ print(vars(session))
 conn = sqlite3.connect('database.db')
 cur = conn.cursor()
 
-lowerplayers = list()
-for i in session.players:
-    lowerplayers.append(i.lower())
-
-fields = ', '.join(lowerplayers) + ", date, players, buyins, revbuyins"
+fields = ', '.join([i.lower() for i in session.players]) + ", date, players, buyins, revbuyins"
 
 playerbalances = "'"
-for i in lowerplayers:
-    if vars(session)[i] != '':
-        playerbalances += vars(session)[i] + "', '"
+for i in players:
+    if session.balances[i.name] is not None:
+        playerbalances += session.balances[i.name] + "', '"
 
 today = datetime.now()
 

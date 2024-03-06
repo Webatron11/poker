@@ -20,7 +20,8 @@ def yninput(session, question, player):
         match yn:
             case "Y":
                 match buyin:
-                    # Takes buyin bool and takes number of buyins or reverse buyins. If neither, it just does normal stuff.
+                    # Takes buyin bool and takes number of buyins or reverse buyins. If neither, it just does normal
+                    # stuff.
                     case None:
                         session.players.append(player.name)
                     case True:
@@ -45,10 +46,15 @@ def yninput(session, question, player):
 def balanceinput(session, playername):
     x = True
     while x:
+
         balancestring = input("What is %s's balance? " % playername).upper()
-        match = re.match(r"(\d+\s+?W)+?\s+?(\d+\s+?R)+?\s+?(\d+\s+?B)+?\s+?(\d+\s+?G)+?\s+?(\d+\s+?B)+?\s+?(\d+\s+?P)", balancestring)
+
+        match = re.match(
+            r"(\d+\s+?W)+?\s+?(\d+\s+?R)+?\s+?(\d+\s+?B)+?\s+?(\d+\s+?G)+?\s+?(\d+\s+?B)+?\s+?(\d+\s+?P)",
+            balancestring)
+
         if match is not None:
-            vars(session)[playername.lower()] = balancestring
+            session.balances[playername] = balancestring
             x = False
         else:
             print("Invalid input.")

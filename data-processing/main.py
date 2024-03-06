@@ -1,4 +1,3 @@
-from sqlite3 import *
 import matplotlib.pyplot as plt
 from functions import *
 
@@ -10,8 +9,13 @@ cur = conn.cursor()
 # Reads db file and parses the information into an array of the Session type.
 
 for row in cur.execute('SELECT * FROM poker ORDER BY date'):
+    for balance in row[4:]:
+        for player in players:
+            balances[player] = balance
+
     i = 1
-    session = Session(i, row[1].split(','), row[2].split(','), row[3].split(','), row[8], row[10], row[9], row[5], row[4], row[7], row[6])
+
+    session = Session(i, row[1].split(','), row[2].split(','), row[3].split(','), balances)
     sessions.append(session)
     i += 1
 

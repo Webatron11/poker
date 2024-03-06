@@ -29,8 +29,8 @@ def balance(sessions, player: Player):
     name = player.name.lower()
 
     for i in sessions:
-        if vars(i)[name] != '':
-            player.balanceovertime.append(chipstobalance(vars(i)[name]))
+        if i.balances[player.name] is not None:
+            player.balanceovertime.append(chipstobalance(i.balances[player.name]))
         else:
             if len(player.balanceovertime) == 0:
                 player.balanceovertime.append(0)

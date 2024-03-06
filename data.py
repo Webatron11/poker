@@ -36,4 +36,6 @@ conn.close()  # Closes the database connection
 # Initialises the players array from the array of column names gathered earlier.
 players = []
 for i in columns:
-    players.append(Player(i[1].upper(), 0, 0, 0, [], []))
+    players.append(Player(i[1].title(), 0, 0, 0, [], []))
+
+balances = dict.fromkeys([i.name for i in players])
