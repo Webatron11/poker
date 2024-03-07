@@ -1,6 +1,7 @@
-from sqlite3 import *
 import matplotlib.pyplot as plt
 from functions import *
+from sqlite3 import connect
+from data import players, balances, Session
 
 sessions = []
 
@@ -9,12 +10,21 @@ cur = conn.cursor()
 
 # Reads db file and parses the information into an array of the Session type.
 
-for row in cur.execute('SELECT * FROM poker ORDER BY date'):
-    i = 1
-    session = Session(i, row[1].split(','), row[2].split(','), row[3].split(','), row[8], row[10], row[9], row[5], row[4], row[7], row[6])
-    sessions.append(session)
-    i += 1
+data = cur.execute('SELECT * FROM poker ORDER BY date')
+data = data.fetchall()
 
+for row in data:
+    for player in players:
+        index = players.index(player) + 4
+        if row[index] == "":
+            balances[player.name] = None
+        else:
+            balances[player.name] = row[index]
+
+    sessions.append(Session(len(sessions) + 1, row[1].split(','), row[2].split(','), row[3].split(','), balances.copy()))
+
+cur.close()
+conn.close()
 
 # Makes an array of integers, so we can graph stuff based on session number.
 
@@ -24,18 +34,24 @@ for i in range(len(sessions)):
 
 # Does all the math stuff.
 
-for i in players:
-    balance(sessions, i)
-    profit(sessions, i)
-    buyin(sessions, i)
-    revbuyin(sessions, i)
-    i.balance = i.balance - (i.buyins * 2000) + (i.revbuyins * 2000)  # This just creates a final balance based off buyins and revbuyins to check against profit()
+for player in players:
+    parsebalance(sessions, player)
+    profit(sessions, player)
+    buyin(sessions, player)
+    revbuyin(sessions, player)
+    player.balance = player.balance - (player.buyins * 2000) + (player.revbuyins * 2000)
+    # This just creates a final balance based off buyins and revbuyins to check against profit()
     # Final balance is correct, it just doesn't match the spreadsheet - I'm 100% sure the spreadsheet is wrong.
-    print(i.balanceovertime, '\n', i.profitovertime, '\n', i.buyins, i.balance, i.revbuyins, i.name, '\n')  # Bug checking for now, going to output data in a prettier manner later
+    print(player.balanceovertime, '\n',
+          player.profitovertime, '\n',
+          player.buyins,
+          player.balance,
+          player.revbuyins,
+          player.name, '\n')  # Bug checking for now, going to output data in a prettier manner later
 
     # Plotting balanceovertime against session number. Should be self-explanatory
 
-    plt.plot(sessionnumbers, i.profitovertime, marker='x', label=i.name)
+    plt.plot(sessionnumbers, player.profitovertime, marker='x', label=player.name)
 
     plt.xlabel("Session Number")
     plt.ylabel("Profit")
@@ -45,11 +61,11 @@ for i in players:
 smallest = 0
 largest = 0
 
-for i in players:
-    if i.profitovertime[-1] > largest:
-        largest = i.profitovertime[-1]
-    elif i.profitovertime[-1] < smallest:
-        smallest = i.profitovertime[-1]
+for player in players:
+    if player.profitovertime[-1] > largest:
+        largest = player.profitovertime[-1]
+    elif player.profitovertime[-1] < smallest:
+        smallest = player.profitovertime[-1]
 
 plt.title("Profit Over Time")
 plt.ylim([smallest, largest])
