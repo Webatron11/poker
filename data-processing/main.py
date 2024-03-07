@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from functions import *
 from sqlite3 import connect
 from data import players, balances, Session
+from tabulate import *
 
 sessions = []
 
@@ -39,23 +40,20 @@ for player in players:
     profit(sessions, player)
     buyin(sessions, player)
     revbuyin(sessions, player)
-    player.balance = player.balance - (player.buyins * 2000) + (player.revbuyins * 2000)
     # This just creates a final balance based off buyins and revbuyins to check against profit()
-    # Final balance is correct, it just doesn't match the spreadsheet - I'm 100% sure the spreadsheet is wrong.
-    print(player.balanceovertime, '\n',
-          player.profitovertime, '\n',
-          player.buyins,
-          player.balance,
-          player.revbuyins,
-          player.name, '\n')  # Bug checking for now, going to output data in a prettier manner later
 
     # Plotting balanceovertime against session number. Should be self-explanatory
 
     plt.plot(sessionnumbers, player.profitovertime, marker='x', label=player.name)
 
-    plt.xlabel("Session Number")
-    plt.ylabel("Profit")
-    plt.grid(True)
+table = []
+for player in players:
+    for session in sessions:
+        if session.balances[player.name] is not None:
+            player.balance = session.balances[player.name]
+    table.append([player.name, player.balance, player.profitovertime[-1], player.buyins, player.revbuyins])
+
+print(tabulate(table, headers=['Name', 'Chip Balance', 'Profit', 'Buyins', 'Revbuyins'], tablefmt='github'))
 
 # Finds smallest profit and largest profit
 smallest = 0
@@ -70,5 +68,8 @@ for player in players:
 plt.title("Profit Over Time")
 plt.ylim([smallest, largest])
 plt.legend()
+plt.xlabel("Session Number")
+plt.ylabel("Profit")
+plt.grid(True)
 
 plt.show()
