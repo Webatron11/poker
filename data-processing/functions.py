@@ -16,7 +16,7 @@ def chipstobalance(chips: str):
     # Takes the formatted matches and times them by their respective chip amounts for the end total
 
     try:
-        balance = (formatted[0] * 10) + (formatted[1] * 25) + (formatted[2] * 100) + (formatted[3] * 500)  # + (formatted[4] * 100) + (formatted[5] * 500)
+        balance = (formatted[0] * 1) + (formatted[1] * 5) + (formatted[2] * 10) + (formatted[3] * 25) + (formatted[4] * 100) + (formatted[5] * 500)
         return balance
     except IndexError:
         return 0
