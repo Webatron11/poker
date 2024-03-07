@@ -1,5 +1,4 @@
 import re
-from data import *
 
 
 def chipstobalance(chips: str):
@@ -17,20 +16,20 @@ def chipstobalance(chips: str):
     # Takes the formatted matches and times them by their respective chip amounts for the end total
 
     try:
-        return ((formatted[0] * 1) + (formatted[1] * 5) + (formatted[2] * 10) + (formatted[3] * 25)
-                + (formatted[4] * 100) + (formatted[5] * 500))
+        balance = (formatted[0] * 10) + (formatted[1] * 25) + (formatted[2] * 100) + (formatted[3] * 500)  # + (formatted[4] * 100) + (formatted[5] * 500)
+        return balance
     except IndexError:
         return 0
 
 
-def balance(sessions, player: Player):
+def parsebalance(sessions, player):
     # Appends session chip total for a player onto their balance overtime, vars converts strings into a variable name,
     # and we need it to all be lower case as the variable names are lower case
-    name = player.name.lower()
 
-    for i in sessions:
-        if i.balances[player.name] is not None:
-            player.balanceovertime.append(chipstobalance(i.balances[player.name]))
+    for session in sessions:
+
+        if session.balances[player.name] is not None:
+            player.balanceovertime.append(chipstobalance(session.balances[player.name]))
         else:
             if len(player.balanceovertime) == 0:
                 player.balanceovertime.append(0)
@@ -44,8 +43,8 @@ def buyin(sessions, player):
     # Goes through all the sessions and adds up a player's buyins by checking if their name appears in the buyin column
     # of the session.
     for i in sessions:
-        for player in i.buyin:
-            if player.name == player:
+        for x in i.buyins:
+            if player.name == x:
                 player.buyins += 1
 
 
@@ -53,8 +52,8 @@ def revbuyin(sessions, player):
     # Goes through all the sessions and adds up a player's revbuyins by checking if their name appears in the revbuyin
     # column of the session.
     for i in sessions:
-        for player in i.revbuyin:
-            if player.name == player:
+        for x in i.revbuyins:
+            if player.name == x:
                 player.revbuyins += 1
 
 

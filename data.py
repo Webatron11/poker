@@ -38,4 +38,4 @@ players = []
 for i in columns:
     players.append(Player(i[1].title(), 0, 0, 0, [], []))
 
-balances = dict.fromkeys([i.name for i in players])
+balances = dict.fromkeys([i.name for i in players])  # Creates a dictionary with the names of all players in the array
