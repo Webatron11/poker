@@ -50,7 +50,7 @@ def balanceinput(session, playername):
         balancestring = input("What is %s's balance? " % playername).upper()
 
         match = re.match(
-            r"(\d+\s+?W)+?\s+?(\d+\s+?R)+?\s+?(\d+\s+?B)+?\s+?(\d+\s+?G)+?\s+?(\d+\s+?B)+?\s+?(\d+\s+?P)",
+            r"(\d+\s+?W)+?\s+?(\d+\s+?R)+?\s+?(\d+\s+?B)+?\s+?(\d+\s+?G)+?\s+?(\d+\s+?B)",
             balancestring)
 
         if match is not None:
