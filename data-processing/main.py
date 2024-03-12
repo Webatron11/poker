@@ -22,7 +22,7 @@ for row in data:
         else:
             balances[player.name] = row[index]
 
-    sessions.append(Session(len(sessions) + 1, row[1].split(','), row[2].split(','), row[3].split(','), balances.copy()))
+    sessions.append(Session(len(sessions) + 1, row[1].split(', '), row[2].split(', '), row[3].split(', '), balances.copy()))
 
 cur.close()
 conn.close()

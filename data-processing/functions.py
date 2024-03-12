@@ -16,7 +16,7 @@ def chipstobalance(chips: str):
     # Takes the formatted matches and times them by their respective chip amounts for the end total
 
     try:
-        balance = (formatted[0] * 1) + (formatted[1] * 5) + (formatted[2] * 10) + (formatted[3] * 25) + (formatted[4] * 100) + (formatted[5] * 500)
+        balance = (formatted[0] * 1) + (formatted[1] * 5) + (formatted[2] * 10) + (formatted[3] * 25) + (formatted[4] * 100)
         return balance
     except IndexError:
         return 0
@@ -78,4 +78,4 @@ def profit(sessions, player):
         if player.name in sessions[i].revbuyins:
             revbuyintotal += 1
 
-        player.profitovertime.append(player.balanceovertime[i] - (buyintotal * 2000) + (revbuyintotal * 2000))
+        player.profitovertime.append(player.balanceovertime[i] - (buyintotal * 200) + (revbuyintotal * 200))
