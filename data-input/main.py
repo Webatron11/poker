@@ -21,22 +21,16 @@ for i in players:
 for i in session.players:
     balanceinput(session, i)
 
-print(vars(session))
-
-conn = sqlite3.connect('database.db')
-cur = conn.cursor()
-
-fields = ', '.join([i.lower() for i in session.players]) + ", date, players, buyins, revbuyins"
+checkbuy(session)
+checkrev(session)
 
 playerbalances = "'"
 for i in players:
     if session.balances[i.name] is not None:
         playerbalances += session.balances[i.name] + "', '"
 
-checkbuy(session)
-checkrev(session)
-
 today = datetime.now()
+fields = ', '.join([i.lower() for i in session.players]) + ", date, players, buyins, revbuyins"
 
 values = (playerbalances +
           today.strftime("%Y/%m/%d %H:%M:%S") +
@@ -46,7 +40,9 @@ values = (playerbalances +
           "'"
           )
 
-print(values)
+conn = sqlite3.connect('database.db')
+cur = conn.cursor()
+
 cur.execute(f"INSERT INTO poker({fields}) VALUES ({values})")
 conn.commit()
 
