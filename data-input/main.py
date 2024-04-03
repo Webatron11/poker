@@ -33,6 +33,9 @@ for i in players:
     if session.balances[i.name] is not None:
         playerbalances += session.balances[i.name] + "', '"
 
+checkbuy(session)
+checkrev(session)
+
 today = datetime.now()
 
 values = (playerbalances +

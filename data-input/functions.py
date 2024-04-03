@@ -1,6 +1,27 @@
 import re
 
 
+def chipstobalance(chips: str):
+    # Uses regex to separate inputted string into W, R, B, G, Bl, P chip counts and then creating a total balance
+    regex = r'\d+\s*'
+
+    matches = re.findall(regex, chips)
+    formatted = []
+
+    # Takes all matches from balance string and then strips them of whitespace
+
+    for i in matches:
+        formatted.append(int(i.strip()))
+
+    # Takes the formatted matches and times them by their respective chip amounts for the end total
+
+    try:
+        balance = (formatted[0] * 1) + (formatted[1] * 5) + (formatted[2] * 10) + (formatted[3] * 25) + (formatted[4] * 100)
+        return balance
+    except IndexError:
+        return 0
+
+
 def yninput(session, question, player):
     string = ""
     match question:
@@ -59,3 +80,15 @@ def balanceinput(session, playername):
         else:
             print("Invalid input.")
             x = True
+
+
+def checkrev(session):
+    for player in session.players:
+        if chipstobalance(session.balances[player]) >= 500:
+            session.revbuyins.append(player)
+
+
+def checkbuy(session):
+    for player in session.players:
+        if chipstobalance(session.balances[player]) <= 100:
+            session.buyins.append(player)
