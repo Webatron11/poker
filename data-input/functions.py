@@ -86,12 +86,12 @@ def checkrev(session):
     for player in session.players:
         balance = chipstobalance(session.balances[player])
         if balance >= 500:
-            over = True
             cnt = 1
-            while over:
-                if balance - (200*cnt) > 500:
-                    print(f'%s has had %s reverse buy ins. Please remove the correct number of chips from their bag.')
-                    over = False
+            while True:
+                if (balance-(200*cnt)) < 500:
+                    print(f'{player} has had {cnt} reverse buy ins. Please remove the correct number of chips from their bag.')
+                    print(200*cnt, balance)
+                    break
                 else:
                     cnt += 1
             for i in range(cnt):
@@ -102,4 +102,4 @@ def checkbuy(session):
     for player in session.players:
         if chipstobalance(session.balances[player]) <= 100:
             session.buyins.append(player)
-            print(f'%s has had 1 buy in. Please add the correct number of chips to their bag.')
+            print(f'{player} has had 1 buy in. Please add the correct number of chips to their bag.')
