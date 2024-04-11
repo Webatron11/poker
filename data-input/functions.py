@@ -88,7 +88,7 @@ def checkrev(session):
         if balance >= 500:
             cnt = 1
             while True:
-                if (balance-(200*cnt)) < 500:
+                if (balance - (200*cnt)) < 500:
                     print(f'{player} has had {cnt} reverse buy ins. Please remove the correct number of chips from their bag.')
                     break
                 else:
