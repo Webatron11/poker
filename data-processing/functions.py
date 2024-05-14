@@ -73,9 +73,12 @@ def profit(sessions, player):
     for i in range(len(player.balanceovertime)):
 
         if player.name in sessions[i].buyins:
-            buyintotal += 1
+            buyintotal += sessions[i].buyins.count(player.name)
 
         if player.name in sessions[i].revbuyins:
-            revbuyintotal += 1
+            revbuyintotal += sessions[i].revbuyins.count(player.name)
+
+    # remove all buyins up to this point
+    # add all revbuyins up to this point
 
         player.profitovertime.append(player.balanceovertime[i] - (buyintotal * 200) + (revbuyintotal * 200))

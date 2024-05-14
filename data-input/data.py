@@ -7,7 +7,7 @@ class Player:
         self.balance = balance  # Balance of player
         self.buyins = buyins  # Contains a int which is the total number of buyins for the player
         self.revbuyins = revbuyins  # Contains an int which is the total number of revbuyins for the player
-        self.balanceovertime = balanceovertime  # Contains an array w5 W 5 R 2 B 2 G 1 Bhich contains the player's balance overtime
+        self.balanceovertime = balanceovertime  # Contains an array which contains the player's balance overtime3
         self.profitovertime = profitovertime  # Contains an array which contains the player's profit over time. This is calculated from their rev/buyins for the session
 
 
