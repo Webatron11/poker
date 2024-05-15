@@ -4,9 +4,19 @@ import re
 from dotenv import load_dotenv
 import os
 
+# Loads discord token from .env
+# .env has DISCORD_TOKEN set to the actual discord token
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
+
+'''
+How the following three classes work is kind of scuffed
+Essentially the program starts down in run() where the ChipView() class is called
+The ChipView class then asks who is playing then calls the BuyinSelect class which 
+further calls the respond_to_buyinyn function in ChipView
+Then respond_to_buyinyn calls the RevbuySelect class which further calls respond_to_revbuyyn which finally halts
+'''
 class BuyinSelect(discord.ui.Select):
     def __init__(self):
         options = [discord.SelectOption(label=opt) for opt in ["Y","N"]]
@@ -58,7 +68,14 @@ class ChipView(discord.ui.View):
 def run():
     intents = discord.Intents.all()
     bot = commands.Bot(command_prefix="!", intents=intents)
-
+    '''
+    The first section of this function just calls the classes mentioned above but after that it then asks for how many buyins,
+    revbuys and finally what the players actual balance is in the form of x W x R x B x G x Bl
+    For the time being this is not perfect as the values entered for buyin and revbuyin are not being properly checked if they are valid
+    so anything could theoretically be entered, this needs to be resolved as soon as possible
+    finally a dictionary of the values (which are countained in the chipview class still) given by this are outputted
+    Actual processing within the main poker program has not been implemented which is currently priority #2
+    '''
     @bot.command()
     async def chips(ctx):
         view = ChipView()
