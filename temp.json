@@ -1,0 +1,30 @@
+{
+  "session": [
+    {
+      "number": 0
+    },
+    {
+      "players": []
+    },
+    {
+      "buyins": []
+    },
+    {
+      "revbuyins": []
+    },
+    {
+      "balances": {
+        "Aidan": null,
+        "Ben": null,
+        "Cooper": null,
+        "Hunter": null,
+        "Oscar": null,
+        "Xavier": null,
+        "Mitchell": null,
+        "Thomas": null,
+        "Guest": null,
+        "Peter": null
+      }
+    }
+  ]
+}
