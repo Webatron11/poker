@@ -47,3 +47,8 @@ if player_temp.lower() == "merge":
     with open('temp.json', 'w') as file:
         file.write(json.dumps({"session": [{"number": 0}, {"players": []}, {"buyins": []}, {"revbuyins": []}, {"balances": balances}]}, indent=2))
         exit()
+
+elif player_temp.lower() == "plzfix":
+    with open('temp.json','w') as file:
+        file.write(json.dumps({"session": [{"number": 0}, {"players": []}, {"buyins": []}, {"revbuyins": []}, {"balances": balances}]}, indent=2))
+        exit()
