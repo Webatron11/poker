@@ -24,10 +24,8 @@ def chipstobalance(chips: str):
 
 def yninput(session, question, player):
     string = ""
+    buyin = None
     match question:
-        case "players":
-            string = "Is %s playing? (Y/N) "
-            buyin = None
         case "buyins":
             string = "Did %s buyin? (Y/N) "
             buyin = True
