@@ -52,3 +52,17 @@ elif player_temp.lower() == "plzfix":
     with open('temp.json','w') as file:
         file.write(json.dumps({"session": [{"number": 0}, {"players": []}, {"buyins": []}, {"revbuyins": []}, {"balances": balances}]}, indent=2))
         exit()
+
+player = [p for p in players if p.name.lower() == player_temp]
+player = player[0]
+if player.name not in session.players:
+    session.players.append(player.name)
+#print(player.name)
+
+yninput(session, "buyins", player)
+yninput(session, "revbuyins", player)
+
+balanceinput(session, player.name)
+
+checkbuy(session)
+checkrev(session)
