@@ -1,7 +1,8 @@
 from datetime import datetime
 import sqlite3
-from data import Session, balances, players
+from data import Session, balances
 from functions import *
+
 
 # Ask user for players
 #   Recurse through list and ask for yes/no answer
@@ -11,40 +12,6 @@ from functions import *
 #   Error check for correct # W # R # B # G format (regex)
 #   Recurse through the list of players inputted.
 
-
-def all_players(session):
-    for player in players:
-        if yninput(session, "players", player) == "Y":
-            yninput(session, "buyins", player)
-            yninput(session, "revbuyins", player)
-
-    for player in session.players:
-        balanceinput(session, player)
-    checkbuy(session)
-    checkrev(session)
-
-
-def one_player(session):
-    for player in players:
-        print(f"{players.index(player)}. {player.name}")
-    while True:
-        player = input("Which player would you like to edit session data for? ")
-        try:
-            int(player)
-        except ValueError:
-            if player.lower() in [i.name.lower() for i in players]:
-                session.append(player.capitalize())
-                break
-            else:
-                print("There is no player with that name. Please try again!")
-        except None:
-            if int(player) < (len(players)-1):
-                session.append(players[player].name.capitalize())
-                break
-            else:
-                print("There is no player with that ID. Please try again!")
-
-
 today = datetime.now()
 conn = sqlite3.connect('database.db')
 cur = conn.cursor()
@@ -52,17 +19,25 @@ cur = conn.cursor()
 session = Session(0, [], [], [], balances)
 
 edit = input("Do you want to edit one player (Y/N)").upper()
-match edit:
-    case "Y":
-        one_player(session)
-    case "N":
-        all_players(session)
+if edit == "Y":
+    one_player = one_player(session)
+    yninput(session, "buyins", one_player)
+    yninput(session, "revbuyins", one_player)
+else:
+    for player in players:
+        if yninput(session, "players", player) == "Y":
+            yninput(session, "buyins", player)
+            yninput(session, "revbuyins", player)
+
+for player in session.players:
+    balanceinput(session, player)
+checkbuy(session)
+checkrev(session)
 
 playerbalances = "'"
 for player in players:
     if session.balances[player.name] is not None:
         playerbalances += session.balances[player.name] + "', '"
-
 fields = ', '.join([player.lower() for player in session.players]) + ", date, players, buyins, revbuyins"
 
 values = (playerbalances +
@@ -73,7 +48,7 @@ values = (playerbalances +
           "'"
           )
 
-cur.execute(f"INSERT INTO poker({fields}) VALUES ({values})")
+cur.execute(f"INSERT INTO poker({fields}) VALUES ({values}) ON CONFLICT DO UPDATE SET {one_player}")
 conn.commit()
 
 cur.close()

@@ -1,4 +1,5 @@
 import re
+from data import players
 
 
 def chipstobalance(chips: str):
@@ -16,7 +17,8 @@ def chipstobalance(chips: str):
     # Takes the formatted matches and times them by their respective chip amounts for the end total
 
     try:
-        balance = (formatted[0] * 1) + (formatted[1] * 5) + (formatted[2] * 10) + (formatted[3] * 25) + (formatted[4] * 100)
+        balance = (formatted[0] * 1) + (formatted[1] * 5) + (formatted[2] * 10) + (formatted[3] * 25) + (
+                    formatted[4] * 100)
         return balance
     except IndexError:
         return 0
@@ -53,7 +55,7 @@ def yninput(session, question, player):
                         num = int(input(f'How many times did {player.name} reverse buyin? '))
                         for i in range(num):
                             session.revbuyins.append(player.name)
-                
+
                 x = False
             case "N":
                 x = False
@@ -88,8 +90,9 @@ def checkrev(session):
         if balance >= 500:
             cnt = 1
             while True:
-                if (balance - (200*cnt)) < 500:
-                    print(f'{player} has had {cnt} reverse buy ins. Please remove the correct number of chips from their bag.')
+                if (balance - (200 * cnt)) < 500:
+                    print(
+                        f'{player} has had {cnt} reverse buy ins. Please remove the correct number of chips from their bag.')
                     break
                 else:
                     cnt += 1
@@ -102,3 +105,25 @@ def checkbuy(session):
         if chipstobalance(session.balances[player]) <= 100:
             session.buyins.append(player)
             print(f'{player} has had 1 buy in. Please add the correct number of chips to their bag.')
+
+def one_player(session):
+    for player in players:
+        print(f"{players.index(player)}. {player.name}")
+    while True:
+        player = input("Which player would you like to edit session data for? ")
+        try:
+            int(player)
+        except ValueError:
+            if player.lower() in [i.name.lower() for i in players]:
+                session.append(player.capitalize())
+                break
+            else:
+                print("There is no player with that name. Please try again!")
+        except None:
+            if int(player) < (len(players) - 1):
+                session.append(players[int(player)].name.capitalize())
+                break
+            else:
+                print("There is no player with that ID. Please try again!")
+
+    return player
