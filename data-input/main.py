@@ -11,7 +11,14 @@ from functions import *
 #   Error check for correct # W # R # B # G format (regex)
 #   Recurse through the list of players inputted.
 
-session = Session(0, [], [], [], balances)
+with open('temp.json', 'r') as f:
+    data = json.load(f)
+    s = data['session']
+    session = Session(s[0]['number'], s[1]['players'], s[2]['buyins'], s[3]['revbuyins'], s[4]['balances'])
+while True:
+    player_temp = input("Who is playing: ").lower()
+    if player_temp in [i.name.lower() for i in players] or player_temp.lower() == "merge" or player_temp.lower() == "plzfix":
+        break
 
 for i in players:
     if yninput(session, "players", i) == "Y":
