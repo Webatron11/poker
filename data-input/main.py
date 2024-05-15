@@ -20,38 +20,30 @@ while True:
     if player_temp in [i.name.lower() for i in players] or player_temp.lower() == "merge" or player_temp.lower() == "plzfix":
         break
 
-for i in players:
-    if yninput(session, "players", i) == "Y":
-        yninput(session, "buyins", i)
-        yninput(session, "revbuyins", i)
+if player_temp.lower() == "merge":
+    playerbalances = "'"
+    for i in players:
+        if session.balances[i.name] is not None:
+            playerbalances += session.balances[i.name] + "', '"
+    today = datetime.now()
+    fields = ', '.join([i.lower() for i in session.players]) + ", date, players, buyins, revbuyins"
 
-for i in session.players:
-    balanceinput(session, i)
+    values = (playerbalances +
+        today.strftime("%Y/%m/%d %H:%M:%S") +
+        "', '" + ", ".join(session.players) +
+        "', '" + ", ".join(session.buyins) +
+        "', '" + ", ".join(session.revbuyins) +
+        "'"
+        )
 
-checkbuy(session)
-checkrev(session)
+    conn = sqlite3.connect('database.db')
+    cur = conn.cursor()
 
-playerbalances = "'"
-for i in players:
-    if session.balances[i.name] is not None:
-        playerbalances += session.balances[i.name] + "', '"
+    cur.execute(f"INSERT INTO poker({fields}) VALUES ({values})")
+    conn.commit()
 
-today = datetime.now()
-fields = ', '.join([i.lower() for i in session.players]) + ", date, players, buyins, revbuyins"
-
-values = (playerbalances +
-          today.strftime("%Y/%m/%d %H:%M:%S") +
-          "', '" + ", ".join(session.players) +
-          "', '" + ", ".join(session.buyins) +
-          "', '" + ", ".join(session.revbuyins) +
-          "'"
-          )
-
-conn = sqlite3.connect('database.db')
-cur = conn.cursor()
-
-cur.execute(f"INSERT INTO poker({fields}) VALUES ({values})")
-conn.commit()
-
-cur.close()
-conn.close()
+    cur.close()
+    conn.close()
+    with open('temp.json', 'w') as file:
+        file.write(json.dumps({"session": [{"number": 0}, {"players": []}, {"buyins": []}, {"revbuyins": []}, {"balances": balances}]}, indent=2))
+        exit()
