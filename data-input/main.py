@@ -33,7 +33,7 @@ today = datetime.now()
 fields = ', '.join([i.lower() for i in session.players]) + ", date, players, buyins, revbuyins"
 
 values = (playerbalances +
-          today.strftime("%Y/%m/%d %H:%M:%S") +
+          today.strftime("%Y/%m/%d") +
           "', '" + ", ".join(session.players) +
           "', '" + ", ".join(session.buyins) +
           "', '" + ", ".join(session.revbuyins) +
