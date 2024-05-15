@@ -55,10 +55,6 @@ class ChipView(discord.ui.View):
         await interaction.response.defer()
         self.stop()
     
-    #async def how_many_revbuys(self, interaction: discord.Interaction, choices):
-
-
-
 def run():
     intents = discord.Intents.all()
     bot = commands.Bot(command_prefix="!", intents=intents)
