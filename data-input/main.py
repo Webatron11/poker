@@ -2,6 +2,7 @@ from datetime import datetime
 import sqlite3
 from data import *
 from functions import *
+import json
 
 # Ask user for players
 #   Recurse through list and ask for yes/no answer
@@ -35,7 +36,6 @@ if player_temp.lower() == "merge":
         "', '" + ", ".join(session.revbuyins) +
         "'"
         )
-
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
 
@@ -66,3 +66,14 @@ balanceinput(session, player.name)
 
 checkbuy(session)
 checkrev(session)
+
+with open('temp.json', "r") as f:
+    data = json.load(f)
+    s = data['session']
+    s[0]['number'] = session.number
+    s[1]['players'] = session.players
+    s[2]['buyins'] = session.buyins
+    s[3]['revbuyins'] = session.revbuyins
+    s[4]['balances'] = session.balances
+with open('temp.json', 'w') as f:
+    f.write(json.dumps(data, indent=2))
