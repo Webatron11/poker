@@ -34,7 +34,7 @@ class RevbuySelect(discord.ui.Select):
         await self.view.respond_to_revbuyyn(interaction, self.values)
 
 class ChipView(discord.ui.View):
-    people = ['Aidan', 'Oscar', 'Xavier', 'Mitchel', 'Guest', 'Peter', 'Ben', 'Cooper']
+    people = [p.name for p in players]
     name = None
     buyinyn = None
     revbuyyn = None
