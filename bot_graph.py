@@ -43,10 +43,14 @@ def create_graph():
         buyin(sessions, player)
         revbuyin(sessions, player)
         # This just creates a final balance based off buyins and revbuyins to check against profit()
+        #if player.balanc
 
         # Plotting balanceovertime against session number. Should be self-explanatory
-        if len(player.profitovertime) >= len(sessions): player.profitovertime = player.profitovertime[:len(sessions)]
-        print(sessionnumbers, player.profitovertime, player.name)
+        if len(player.profitovertime) >= len(sessions):
+            player.balanceovertime = player.balanceovertime[:len(sessions)]
+            player.profitovertime = player.profitovertime[:len(sessions)]
+        
+
         plt.plot(sessionnumbers, player.profitovertime, marker='x', label=player.name)
 
     table = []
@@ -61,7 +65,6 @@ def create_graph():
     # Finds smallest profit and largest profit
     smallest = 0
     largest = 0
-
     for player in players:
         if player.profitovertime[-1] > largest:
             largest = player.profitovertime[-1]
@@ -76,3 +79,4 @@ def create_graph():
     plt.grid(True)
 
     plt.savefig("graph.png")
+    plt.close()

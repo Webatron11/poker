@@ -24,9 +24,7 @@ def chipstobalance(chips: str):
 def parsebalance(sessions, player):
     # Appends session chip total for a player onto their balance overtime, vars converts strings into a variable name,
     # and we need it to all be lower case as the variable names are lower case
-
     for session in sessions:
-
         if session.balances[player.name] is not None:
             player.balanceovertime.append(chipstobalance(session.balances[player.name]))
         else:
@@ -35,7 +33,7 @@ def parsebalance(sessions, player):
             else:
                 player.balanceovertime.append(player.balanceovertime[-1])
 
-    player.balance = player.balanceovertime[-1]
+        player.balance = player.balanceovertime[-1]
 
 def buyin(sessions, player):
     # Goes through all the sessions and adds up a player's buyins by checking if their name appears in the buyin column
@@ -65,18 +63,15 @@ def profit(sessions, player):
     # Check for revbuyin/buyin
     # index revbuyin/buyin if present
     # make profitovertime = balanceovertime + (revbuyintotal * 2000) - (buyintotal * 2000)
-
-    for i in range(len(player.balanceovertime)):
-
+    for i in range(len(sessions)):
         if player.name in sessions[i].buyins:
             buyintotal += sessions[i].buyins.count(player.name)
-
         if player.name in sessions[i].revbuyins:
             revbuyintotal += sessions[i].revbuyins.count(player.name)
-
+        player.balanceovertime = player.balanceovertime[:len(sessions)]
     # remove all buyins up to this point
     # add all revbuyins up to this point
-
+        
         player.profitovertime.append(player.balanceovertime[i] - (buyintotal * 200) + (revbuyintotal * 200))
 
 def yninput(session, buyinyn, revbuyyn, buyins, revbuys, player):
