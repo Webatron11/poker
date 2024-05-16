@@ -6,6 +6,7 @@ import os
 import bot_input
 from data import *
 import sqlite3 # This is being imported for error handling
+import bot_graph
 
 # Loads discord token from .env
 # .env has DISCORD_TOKEN set to the actual discord token
@@ -138,6 +139,13 @@ def run():
         returned_tple = bot_input.process_results(results)
         if returned_tple[0] is not None: await ctx.send(f"{returned_tple[0]}") 
         if returned_tple[1] is not None: await ctx.send(f"{returned_tple[1]}")
+    @bot.command()
+    async def graph(ctx):
+        bot_graph.create_graph()
+        file = discord.File(f'{os.path.abspath(os.getcwd())}/graph.png')
+        embed = discord.Embed()
+        embed.set_image(url="attachment://graph.png")
+        await ctx.send(file=file, embed=embed)
     @commands.has_role("Chip Merger")
     @bot.command()
     async def merge(ctx):
