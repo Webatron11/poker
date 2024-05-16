@@ -112,13 +112,17 @@ def f_commit():
     repo.index.commit("Updated database")
 def f_revert():
     repo = Repo.init(os.path.abspath(os.getcwd()))
-    repo.git.reset('--hard')
+    repo.git.reset('HEAD~1')
 
 def f_push():
     repo = Repo.init(os.path.abspath(os.getcwd()))
     origin = repo.remote(name='origin')
-    origin.push()
+    origin.push(force=True)
 
 def commit_and_push():
     f_commit()
+    f_push()
+
+def revert_and_force_push():
+    f_revert()
     f_push()
