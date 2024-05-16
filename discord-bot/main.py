@@ -138,16 +138,21 @@ def run():
         returned_tple = bot_input.process_results(results)
         if returned_tple[0] is not None: await ctx.send(f"{returned_tple[0]}") 
         if returned_tple[1] is not None: await ctx.send(f"{returned_tple[1]}")
+    @commands.has_role("Chip Merger")
     @bot.command()
     async def merge(ctx):
         try:
             bot_input.merge_results()
             await ctx.send("Sucess, the changes have been merged into the database")
         except sqlite3.OperationalError:
-            await ctx.send("No changes have been made")
+            await ctx.send("No changes have been made, not merged")
+    @commands.has_role("Chip Merger")
     @bot.command()
     async def plz_fix(ctx):
         bot_input.plz_fix()
         await ctx.send("Temp.json has been reset")
+    @bot.event
+    async def on_command_error(ctx, error):
+        await ctx.send(error)
     bot.run(token=TOKEN)
 run()
