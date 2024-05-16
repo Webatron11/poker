@@ -134,7 +134,9 @@ def run():
                 await ctx.send("Invalid input")
         
         results = {"name": view.name, "buyinyn": view.buyinyn, "revbuyyn": view.revbuyyn, "buyins": view.buyins, "revbuys": view.revbuys, "balance": view.balance}
-        await ctx.send(f"{results}")
- 
+        returned_tple = bot_input.process_results(results)
+        if returned_tple[0] is not None: await ctx.send(f"{returned_tple[0]}") 
+        if returned_tple[1] is not None: await ctx.send(f"{returned_tple[1]}")
+    @bot.command()
     bot.run(token=TOKEN)
 run()
