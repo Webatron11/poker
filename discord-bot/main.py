@@ -26,6 +26,7 @@ class BuyinSelect(discord.ui.Select):
         super().__init__(options=options, placeholder="Did you buyin?")
     async def callback(self, interaction:discord.Interaction):
         await self.view.respond_to_buyinyn(interaction, self.values)
+
 class RevbuySelect(discord.ui.Select):
     def __init__(self):
         options = [discord.SelectOption(label=opt) for opt in ["Y","N"]]
