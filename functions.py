@@ -1,4 +1,6 @@
 import re
+import os
+from git import Repo
 from sqlite3 import connect
 
 def chipstobalance(chips: str):
@@ -98,8 +100,25 @@ def checkbuy(session, player):
         session.buyins.append(player)
         return f'{player} has had 1 buy in. Please add the correct number of chips to their bag.'
 
-def add_user(player):
+def f_add_user(player):
     conn = connect('database.db')
     cur = conn.cursor()
     cur.execute(f"alter table poker add {player.lower()};")
     conn.commit()
+
+def f_commit():
+    repo = Repo.init(os.path.abspath(os.getcwd()))
+    repo.index.add(["database.db"])
+    repo.index.commit("Updated database")
+def f_revert():
+    repo = Repo.init(os.path.abspath(os.getcwd()))
+    repo.git.reset('--hard')
+
+def f_push():
+    repo = Repo.init(os.path.abspath(os.getcwd()))
+    origin = repo.remote(name='origin')
+    origin.push()
+
+def commit_and_push():
+    f_commit()
+    f_push()

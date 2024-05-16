@@ -7,7 +7,7 @@ import bot_input
 from data import *
 import sqlite3 # This is being imported for error handling
 import bot_graph
-from functions import add_user as f_add_user
+from functions import f_add_user,f_commit,f_revert,f_push, commit_and_push
 
 # Loads discord token from .env
 # .env has DISCORD_TOKEN set to the actual discord token
@@ -171,6 +171,25 @@ def run():
         )
         f_add_user(msg.content)  # Add 'await' here
         await ctx.send(f"Player {msg.content} has been added") 
+    @commands.has_role("Chip Merger")
+    @bot.command()
+    async def commit(ctx):
+        f_commit()
+        await ctx.send("Added database and commited")
+    @commands.has_role("Chip Merger")
+    @bot.command()
+    async def revert(ctx):
+        f_revert()
+        await ctx.send("Hard reverted to last change")
+    @commands.has_role("Chip Merger")
+    @bot.command()
+    async def push(ctx):
+        f_push()
+        await ctx.send("Pushed to origin")
+    @commands.has_role("Chip Merger")
+    @bot.command()
+    async def cpush(ctx):
+        commit_and_push()
 
     @bot.event
     async def on_command_error(ctx, error):
