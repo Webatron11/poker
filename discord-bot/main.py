@@ -138,5 +138,12 @@ def run():
         if returned_tple[0] is not None: await ctx.send(f"{returned_tple[0]}") 
         if returned_tple[1] is not None: await ctx.send(f"{returned_tple[1]}")
     @bot.command()
+    async def merge(ctx):
+        try:
+            bot_input.merge_results()
+            await ctx.send("Sucess, the changes have been merged into the database")
+        except sqlite3.OperationalError:
+            await ctx.send("No changes have been made")
+    @bot.command()
     bot.run(token=TOKEN)
 run()
