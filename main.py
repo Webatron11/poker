@@ -7,7 +7,7 @@ import bot_input
 from data import *
 import sqlite3 # This is being imported for error handling
 import bot_graph
-from functions import f_add_user,f_commit,f_revert,f_push
+from functions import f_add_user,f_commit,f_revert,f_push, commit_and_push
 
 # Loads discord token from .env
 # .env has DISCORD_TOKEN set to the actual discord token
@@ -186,6 +186,10 @@ def run():
     async def push(ctx):
         f_push()
         await ctx.send("Pushed to origin")
+    @commands.has_role("Chip Merger")
+    @bot.command()
+    async def cpush(ctx):
+        commit_and_push()
 
     @bot.event
     async def on_command_error(ctx, error):
