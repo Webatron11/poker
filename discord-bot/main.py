@@ -3,6 +3,9 @@ from discord.ext import commands
 import re
 from dotenv import load_dotenv
 import os
+import bot_input
+from data import *
+import sqlite3 # This is being imported for error handling
 
 # Loads discord token from .env
 # .env has DISCORD_TOKEN set to the actual discord token
