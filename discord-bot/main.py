@@ -145,5 +145,8 @@ def run():
         except sqlite3.OperationalError:
             await ctx.send("No changes have been made")
     @bot.command()
+    async def plz_fix(ctx):
+        bot_input.plz_fix()
+        await ctx.send("Temp.json has been reset")
     bot.run(token=TOKEN)
 run()
