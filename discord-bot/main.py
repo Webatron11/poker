@@ -71,10 +71,8 @@ def run():
     '''
     The first section of this function just calls the classes mentioned above but after that it then asks for how many buyins,
     revbuys and finally what the players actual balance is in the form of x W x R x B x G x Bl
-    For the time being this is not perfect as the values entered for buyin and revbuyin are not being properly checked if they are valid
-    so anything could theoretically be entered, this needs to be resolved as soon as possible
     finally a dictionary of the values (which are countained in the chipview class still) given by this are outputted
-    Actual processing within the main poker program has not been implemented which is currently priority #2
+    Actual processing within the main poker program has not been implemented which is currently priority #1
     '''
     @bot.command()
     async def chips(ctx):
@@ -83,23 +81,38 @@ def run():
 
         await view.wait()
         if view.buyinyn[0] == 'Y':
-            await ctx.send("How many buyins")
-            msg = await bot.wait_for(
-                "message",
-                timeout=60,
-                check=lambda message: message.author == ctx.author and message.channel == ctx.channel
-            )
-            view.buyins = msg.content
-            ctx.send("Buyins recorded")
+            while True:
+                await ctx.send("How many buyins")
+                msg = await bot.wait_for(
+                    "message",
+                    timeout=60,
+                    check=lambda message: message.author == ctx.author and message.channel == ctx.channel
+                )
+                try:
+                    if int(msg.content):
+                        view.buyins = msg.content
+                        await ctx.send("Buyins recorded")
+                        break
+                except Exception as e:
+                    await ctx.send("Invalid input")
+                    print(e)
+
         if view.revbuyyn[0] == 'Y':
-            await ctx.send("How many revbuys")
-            msg = await bot.wait_for(
-                "message",
-                timeout=60,
-                check=lambda message: message.author == ctx.author and message.channel == ctx.channel
-            )
-            ctx.send("Revbuys recorded")
-            view.revbuys = msg.content
+            while True:
+                await ctx.send("How many revbuys")
+                msg = await bot.wait_for(
+                    "message",
+                    timeout=60,
+                    check=lambda message: message.author == ctx.author and message.channel == ctx.channel
+                )
+                try:
+                    if int(msg.content):
+                        await ctx.send("Revbuys recorded")
+                        view.revbuys = msg.content
+                        break
+                except Exception as e:
+                    await ctx.send("Invalid input")
+                    print(e)
         while True:
             await ctx.send("Input your balance")
             msg = await bot.wait_for(
@@ -110,15 +123,14 @@ def run():
             try:
                 if re.match(r"(\d+\s+?W)+?\s+?(\d+\s+?R)+?\s+?(\d+\s+?B)+?\s+?(\d+\s+?G)+?\s+?(\d+\s+?B)",msg.content) is not None:
                     view.balance = msg.content
-                    ctx.send("Balance recorded")
+                    await ctx.send("Balance recorded")
                     break
                 else:
-                    ctx.send("Invalid input")
+                    await ctx.send("Invalid input")
             except:
-                ctx.send("Invalid input")
+                await ctx.send("Invalid input")
         
         results = {"name": view.name, "buyinyn": view.buyinyn, "revbuyyn": view.revbuyyn, "buyins": view.buyins, "revbuys": view.revbuys, "balance": view.balance}
-        print([int(i) for i in [item for item in results.values()][-3:-1]])
         await ctx.send(f"{results}")
  
     bot.run(token=TOKEN)
