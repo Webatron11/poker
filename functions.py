@@ -1,5 +1,5 @@
 import re
-
+from sqlite3 import connect
 
 def chipstobalance(chips: str):
     # Uses regex to separate inputted string into W, R, B, G, Bl, P chip counts and then creating a total balance
