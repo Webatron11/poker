@@ -102,3 +102,9 @@ def checkbuy(session, player):
     if chipstobalance(session.balances[player]) <= 100:
         session.buyins.append(player)
         return f'{player} has had 1 buy in. Please add the correct number of chips to their bag.'
+
+def add_user(player):
+    conn = connect('database.db')
+    cur = conn.cursor()
+    cur.execute(f"alter table poker add {player.lower()};")
+    conn.commit()
