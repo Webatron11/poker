@@ -45,7 +45,8 @@ def create_graph():
         # This just creates a final balance based off buyins and revbuyins to check against profit()
 
         # Plotting balanceovertime against session number. Should be self-explanatory
-
+        if len(player.profitovertime) >= len(sessions): player.profitovertime = player.profitovertime[:len(sessions)]
+        print(sessionnumbers, player.profitovertime, player.name)
         plt.plot(sessionnumbers, player.profitovertime, marker='x', label=player.name)
 
     table = []
