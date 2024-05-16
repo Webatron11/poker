@@ -7,6 +7,7 @@ import bot_input
 from data import *
 import sqlite3 # This is being imported for error handling
 import bot_graph
+from functions import add_user as f_add_user
 
 # Loads discord token from .env
 # .env has DISCORD_TOKEN set to the actual discord token
@@ -152,13 +153,25 @@ def run():
         try:
             bot_input.merge_results()
             await ctx.send("Sucess, the changes have been merged into the database")
-        except sqlite3.OperationalError:
-            await ctx.send("No changes have been made, not merged")
+        except sqlite3.OperationalError as e:
+            await ctx.send(f"No changes have been made, not merged {e}")
     @commands.has_role("Chip Merger")
     @bot.command()
     async def plz_fix(ctx):
         bot_input.plz_fix()
         await ctx.send("Temp.json has been reset")
+    @commands.has_role("Chip Merger")
+    @bot.command()
+    async def add_user(ctx):
+        await ctx.send("Name?")
+        msg = await bot.wait_for(
+            "message",
+            timeout=60,
+            check=lambda message: message.author == ctx.author and message.channel == ctx.channel
+        )
+        f_add_user(msg.content)  # Add 'await' here
+        await ctx.send(f"Player {msg.content} has been added") 
+
     @bot.event
     async def on_command_error(ctx, error):
         await ctx.send(error)
