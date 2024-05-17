@@ -8,6 +8,7 @@ from data import *
 import sqlite3 # This is being imported for error handling
 import bot_graph
 from functions import f_add_user,f_commit,f_revert,f_push, commit_and_push, revert_and_force_push
+from chip_detection import *
 
 # Loads discord token from .env
 # .env has DISCORD_TOKEN set to the actual discord token
@@ -80,6 +81,23 @@ def run():
     finally a dictionary of the values (which are countained in the chipview class still) given by this are outputted
     Actual processing within the main poker program has not been implemented which is currently priority #1
     '''
+    @bot.command()
+    async def ai_chips(ctx):
+        while True:
+            await ctx.send("Send the picture of your chips")
+            msg = await bot.wait_for(
+                "message",
+                timeout=120,
+                check=lambda message:message.author == ctx.author and message.channel == ctx.channel
+            )
+            try:
+                chip_dict = chip_detection(msg.attachments[0])
+                break
+            except:
+                await ctx.send("Invalid input")
+
+        await ctx.send(f"{chip_dict}")
+
     @bot.command()
     async def chips(ctx):
         view = ChipView()
