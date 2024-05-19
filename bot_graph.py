@@ -1,8 +1,7 @@
 import matplotlib.pyplot as plt
 from functions import *
-from sqlite3 import connect
 from data import players, balances, Session
-from tabulate import *
+from tabulate import tabulate
 
 
 def create_graph():
@@ -24,7 +23,8 @@ def create_graph():
             else:
                 balances[player.name] = row[index]
 
-        sessions.append(Session(len(sessions) + 1, row[1].split(', '), row[2].split(', '), row[3].split(', '), balances.copy()))
+        sessions.append(
+            Session(len(sessions) + 1, row[1].split(', '), row[2].split(', '), row[3].split(', '), balances.copy()))
 
     cur.close()
     conn.close()
@@ -33,7 +33,7 @@ def create_graph():
 
     sessionnumbers = []
     for i in range(len(sessions)):
-        sessionnumbers.append(i+1)
+        sessionnumbers.append(i + 1)
 
     # Does all the math stuff.
 
@@ -43,13 +43,12 @@ def create_graph():
         buyin(sessions, player)
         revbuyin(sessions, player)
         # This just creates a final balance based off buyins and revbuyins to check against profit()
-        #if player.balanc
+        # if player.balance
 
         # Plotting balanceovertime against session number. Should be self-explanatory
         if len(player.profitovertime) >= len(sessions):
             player.balanceovertime = player.balanceovertime[:len(sessions)]
             player.profitovertime = player.profitovertime[:len(sessions)]
-        
 
         plt.plot(sessionnumbers, player.profitovertime, marker='x', label=player.name)
 
