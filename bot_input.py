@@ -42,9 +42,9 @@ def process_results(results: dict):
 def merge_results():
     session = open_session()
     playerbalances = "'"
-    for i in players:
-        if session.balances[i.name] is not None:
-            playerbalances += session.balances[i.name] + "', '"
+    for i in session.players:
+        if session.balances[i] is not None:
+            playerbalances += session.balances[i] + "', '"
     today = datetime.now()
     fields = ', '.join([i.lower() for i in session.players]) + ", date, players, buyins, revbuyins"
 
