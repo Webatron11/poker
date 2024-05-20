@@ -9,6 +9,7 @@ import sqlite3 # This is being imported for error handling
 import bot_graph
 from functions import f_add_user,f_commit,f_revert,f_push, commit_and_push, revert_and_force_push
 from chip_detection import *
+import pathlib
 
 # Loads discord token from .env
 # .env has DISCORD_TOKEN set to the actual discord token
@@ -165,6 +166,7 @@ def run():
         embed = discord.Embed()
         embed.set_image(url="attachment://graph.png")
         await ctx.send(file=file, embed=embed)
+        pathlib.Path.unlink("graph.png")
     @commands.has_role("Chip Merger")
     @bot.command()
     async def merge(ctx):
