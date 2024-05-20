@@ -7,7 +7,7 @@ def chip_detection(url):
     with open("temp.jpg",'wb') as f:
         f.write(r.content)
     model = YOLO('best.pt')
-    results = model.predict(source=['temp.jpg'],conf=0.5)
+    results = model.predict(source=['temp.jpg'],conf=0.25)
     pathlib.Path.unlink("temp.jpg") # Deletes the file
 
     ### There absolutely must be a better way to do this but this is how you you get the chip count by going through the boxes and counting them
