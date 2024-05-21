@@ -4,21 +4,27 @@
       "number": 0
     },
     {
-      "players": []
+      "players": [
+        "Ben",
+        "Aidan",
+        "Oscar"
+      ]
     },
     {
-      "buyins": []
+      "buyins": [
+        "Aidan"
+      ]
     },
     {
       "revbuyins": []
     },
     {
       "balances": {
-        "Aidan": null,
-        "Ben": null,
+        "Aidan": "0 W 0 R 0 B 0 G 0 Bl",
+        "Ben": "36 W 17 R 4 B 2 G 1 BL",
         "Cooper": null,
         "Hunter": null,
-        "Oscar": null,
+        "Oscar": "5 W 3 R 10 B 0 G 0 B",
         "Xavier": null,
         "Mitchell": null,
         "Thomas": null,
