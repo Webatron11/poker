@@ -65,6 +65,8 @@ def merge_results():
     cur.close()
     conn.close()
     with open('temp.json', 'w') as file:
+        for val in balances.keys():
+            balances[val] = None
         file.write(dumps(
             {"session": [{"number": 0}, {"players": []}, {"buyins": []}, {"revbuyins": []}, {"balances": balances}]},
             indent=2))
