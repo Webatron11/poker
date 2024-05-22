@@ -71,11 +71,12 @@ def create_graph():
             smallest = player.profitovertime[-1]
 
     plt.title("Profit Over Time")
-    plt.ylim([smallest, largest])
-    plt.legend()
+    plt.ylim([smallest-500, largest+2000])
+    plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left", borderaxespad=0)
     plt.xlabel("Session Number")
     plt.ylabel("Profit")
     plt.grid(True)
+    plt.subplots_adjust(right=0.8)
 
     plt.savefig("graph.png")
     plt.close()
