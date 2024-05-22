@@ -1,15 +1,17 @@
+from os import getenv, path, getcwd
+from pathlib import Path
+from re import match
+from sqlite3 import OperationalError  # This is being imported for error handling
+
 import discord
 from discord.ext import commands
-from re import match
 from dotenv import load_dotenv
-from os import getenv, path, getcwd
+
 import bot_input
-from data import players
-from sqlite3 import OperationalError  # This is being imported for error handling
-from bot_graph import create_graph
-from functions import f_add_user, f_commit, f_revert, f_push, commit_and_push, revert_and_force_push
+import bot_output
 from chip_detection import *
-from pathlib import Path
+from data import players
+from functions import f_add_user, f_commit, f_revert, f_push, commit_and_push, revert_and_force_push
 
 # Loads discord token from .env
 # .env has DISCORD_TOKEN set to the actual discord token
@@ -97,7 +99,7 @@ def run():
             msg = await bot.wait_for(
                 "message",
                 timeout=120,
-                check=lambda message:message.author == ctx.author and message.channel == ctx.channel
+                check=lambda message: message.author == ctx.author and message.channel == ctx.channel
             )
             try:
                 chip_dict = chip_detection(msg.attachments[0])
@@ -174,12 +176,20 @@ def run():
 
     @bot.command()
     async def graph(ctx):
-        create_graph()
+        bot_output.create_graph()
         file = discord.File(f'{path.abspath(getcwd())}/graph.png')
         embed = discord.Embed()
         embed.set_image(url="attachment://graph.png")
         await ctx.send(file=file, embed=embed)
         Path.unlink("graph.png")
+
+    @bot.command()
+    async def sessions(ctx):
+        await ctx.send(bot_output.map_sessions())
+
+    @bot.command()
+    async def stats(ctx):
+        await ctx.send(bot_output.print_table())
 
     @commands.has_role("Chip Merger")
     @bot.command()
