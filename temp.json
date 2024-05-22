@@ -14,12 +14,12 @@
     },
     {
       "balances": {
-        "Aidan": "35 W 31 R 2 B 5 G 0 Bl",
-        "Ben": "39 W 40 R 11 B 4 G 1 BL",
+        "Aidan": null,
+        "Ben": null,
         "Cooper": null,
-        "Hunter": "29 W 22 R 8 B 1 G 0 BL",
-        "Oscar": "0 W 0 R 0 B 0 G 0 Bl",
-        "Xavier": "7 W 4 R 1 B 1 G 0 Bl",
+        "Hunter": null,
+        "Oscar": null,
+        "Xavier": null,
         "Mitchell": null,
         "Thomas": null,
         "Guest": null,
