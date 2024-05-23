@@ -25,7 +25,9 @@ def process_results(results: dict):
     session.balances[player.name] = results['balance']
 
     return_buyins = checkbuy(session, player.name)
+    [session.buyins.append(player.name) for i in range(int(results['buyins']))]
     return_revbuys = checkrev(session, player.name)
+    [session.revbuyins.append(player.name) for i in range(int(results['revbuys']))]
 
     with open('temp.json', "r") as f:
         data = load(f)
