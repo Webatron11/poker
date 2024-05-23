@@ -4,26 +4,43 @@
       "number": 0
     },
     {
-      "players": []
+      "players": [
+        "Xavier",
+        "Ben",
+        "Peter",
+        "Hunter",
+        "Mitchell",
+        "Oscar",
+        "Aidan"
+      ]
     },
     {
-      "buyins": []
+      "buyins": [
+        "Aidan",
+        "Aidan",
+        "Aidan"
+      ]
     },
     {
-      "revbuyins": []
+      "revbuyins": [
+        "Xavier",
+        "Hunter",
+        "Hunter",
+        "Hunter"
+      ]
     },
     {
       "balances": {
-        "Aidan": null,
-        "Ben": null,
+        "Aidan": "46 W 19 R 0 B 0 G 0 Bl",
+        "Ben": "4 W 9 R 6 B 10 G 1 Bl",
         "Cooper": null,
-        "Hunter": null,
-        "Oscar": null,
-        "Xavier": null,
-        "Mitchell": null,
+        "Hunter": "11 W 7 R 3 B 3 G 0 B",
+        "Oscar": "6 W 34 R 0 B 0 G 0 B",
+        "Xavier": "31 W 47 R 20 B 6 G 0 Bl",
+        "Mitchell": "16 W 2 R 9 B 7 G 0 B",
         "Thomas": null,
         "Guest": null,
-        "Peter": null
+        "Peter": "21 W 26 R 3 B 2 G 0 Bl"
       }
     }
   ]
