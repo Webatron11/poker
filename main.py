@@ -44,7 +44,6 @@ class RevbuySelect(discord.ui.Select):
     async def callback(self, interaction: discord.Interaction):
         await self.view.respond_to_revbuyyn(interaction, self.values)
 
-
 class ChipView(discord.ui.View):
     people = [p.name for p in players]
     name = None
@@ -111,6 +110,17 @@ def run():
 
     @bot.command()
     async def chips(ctx):
+        async def if_correct(ctx, chip_dict):
+            while True:
+                await ctx.send(f"Are you happy with {chip_dict}")
+                msg = await bot.wait_for(
+                    "message",
+                    timeout = 120,
+                    check = lambda message: message.author == ctx.author and message.channel == ctx.channel
+                )
+                if msg.content.lower() in ['yes','no']:
+                    return msg.content.lower()
+
         view = ChipView()
         await ctx.send(view=view)
 
@@ -149,22 +159,35 @@ def run():
                     await ctx.send("Invalid input")
                     print(e)
         while True:
-            await ctx.send("Input your balance")
+            await ctx.send("Send the picture of your chips")
             msg = await bot.wait_for(
                 "message",
-                timeout=300,
+                timeout=120,
                 check=lambda message: message.author == ctx.author and message.channel == ctx.channel
             )
             try:
-                if match(r"(\d+\s+?W)+?\s+?(\d+\s+?R)+?\s+?(\d+\s+?B)+?\s+?(\d+\s+?G)+?\s+?(\d+\s+?B)",
-                         msg.content) is not None:
-                    view.balance = msg.content
-                    await ctx.send("Balance recorded")
-                    break
-                else:
+                chip_dict = chip_detection(msg.attachments[0])
+                yn = await if_correct(ctx,chip_dict)
+                assert yn == 'yes'
+                view.balance = f"{chip_dict['White']} W {chip_dict['Red']} R {chip_dict['Blue']} B {chip_dict['Green']} G {chip_dict['Black']} Bl"
+                break
+            except AssertionError:
+                await ctx.send("Input your balance")
+                msg = await bot.wait_for(
+                    "message",
+                    timeout = 300,
+                    check = lambda message: message.author == ctx.author and message.channel == ctx.channel
+                )
+                try:
+                    if match(r"(\d+\s+?W)+?\s+?(\d+\s+?R)+?\s+?(\d+\s+?B)+?\s+?(\d+\s+?G)+?\s+?(\d+\s+?B)",
+                        msg.content) is not None:
+                        view.balance = msg.content
+                        await ctx.send("Balance recorded")
+                        break
+                    else:
+                        await ctx.send("Invalid input")
+                except:
                     await ctx.send("Invalid input")
-            except:
-                await ctx.send("Invalid input")
 
         results = {"name": view.name, "buyinyn": view.buyinyn, "revbuyyn": view.revbuyyn, "buyins": view.buyins,
                    "revbuys": view.revbuys, "balance": view.balance}
