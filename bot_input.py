@@ -25,7 +25,9 @@ def process_results(results: dict):
     session.balances[player.name] = results['balance']
 
     return_buyins = checkbuy(session, player.name)
+    [session.buyins.append(player.name) for i in range(int(results['buyins']))]
     return_revbuys = checkrev(session, player.name)
+    [session.revbuyins.append(player.name) for i in range(int(results['revbuys']))]
 
     with open('temp.json', "r") as f:
         data = load(f)
@@ -44,9 +46,9 @@ def process_results(results: dict):
 def merge_results():
     session = open_session()
     playerbalances = "'"
-    for i in players:
-        if session.balances[i.name] is not None:
-            playerbalances += session.balances[i.name] + "', '"
+    for i in session.players:
+        if session.balances[i] is not None:
+            playerbalances += session.balances[i] + "', '"
     today = datetime.now()
     fields = ', '.join([i.lower() for i in session.players]) + ", date, players, buyins, revbuyins"
 
@@ -65,6 +67,8 @@ def merge_results():
     cur.close()
     conn.close()
     with open('temp.json', 'w') as file:
+        for val in balances.keys():
+            balances[val] = None
         file.write(dumps(
             {"session": [{"number": 0}, {"players": []}, {"buyins": []}, {"revbuyins": []}, {"balances": balances}]},
             indent=2))

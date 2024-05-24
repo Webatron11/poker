@@ -2,13 +2,14 @@ from sqlite3 import connect
 
 
 class Player:
-    def __init__(self, name, balance, buyins, revbuyins, balanceovertime, profitovertime):
+    def __init__(self, name, balance, buyins, revbuyins, balanceovertime, profitovertime, chipsovertime):
         self.name = name  # Name of player
         self.balance = balance  # Balance of player
         self.buyins = buyins  # Contains an int which is the total number of buyins for the player
         self.revbuyins = revbuyins  # Contains an int which is the total number of revbuyins for the player
         self.balanceovertime = balanceovertime  # Contains an array w5 W 5 R 2 B 2 G 1 Which contains the player's balance overtime
         self.profitovertime = profitovertime  # Contains an array which contains the player's profit over time. This is calculated from their rev/buyins for the session
+        self.chipsovertime = chipsovertime # An array of the players chip balance over time
 
 
 class Session:
@@ -36,6 +37,6 @@ conn.close()  # Closes the database connection
 # Initialises the players array from the array of column names gathered earlier.
 players = []
 for i in columns:
-    players.append(Player(i[1].title(), 0, 0, 0, [], []))
+    players.append(Player(i[1].title(), 0, 0, 0, [], [], []))
 
 balances = dict.fromkeys([i.name for i in players])  # Creates a dictionary with the names of all players in the array
