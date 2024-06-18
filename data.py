@@ -11,6 +11,13 @@ class Player:
         self.profitovertime = profitovertime  # Contains an array which contains the player's profit over time. This is calculated from their rev/buyins for the session
         self.chipsovertime = chipsovertime # An array of the players chip balance over time
 
+    def clear(self):
+        self.balance = 0
+        self.buyins = 0
+        self.revbuyins = 0
+        self.balanceovertime = []
+        self.profitovertime = []
+        self.chipsovertime = []
 
 class Session:
     def __init__(self, number, players, buyins, revbuyins, balances):

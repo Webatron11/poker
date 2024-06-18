@@ -6,6 +6,9 @@ from functions import *
 
 
 def create_sessions():
+    for player in players:
+        player.clear()
+
     sessions = []
     conn = connect('database.db')
     cur = conn.cursor()
